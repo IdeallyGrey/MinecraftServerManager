@@ -1,6 +1,6 @@
-responce = "0"
+responce="0"
 
-printf -- "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+printf -- "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
 printf -- "\nLoading...\n"
 printf -- "Java version: \n----------\n"
 java --version

@@ -1,12 +1,12 @@
-#Some functions
+# Some functions
 
-#Skips a bunch of lines
+# Skips a bunch of lines
 clear_page()
 {
 printf -- "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
 }
 
-#Main menu
+# Main menu
 main_menu()
 {
 lock="1"
@@ -24,11 +24,11 @@ do
 	read -r responce
 	case $responce in
 	1)
-	printf -- "View Servers\n" ;;
+	view_servers_menu ;;
 	2)
-	printf -- "Create New Server\n" ;;
+	create_new_server_menu ;;
 	3)
-	printf -- "Preferences\n" ;;
+	preferences_menu ;;
 	4)
 	printf -- "Goodbye!\n\n" && exit 0 ;;
 	*)
@@ -37,7 +37,16 @@ do
 done
 }
 
+# View servers menu
+view_servers_menu()
 
-#Starts executing from here
+# Create new server menu
+create_new_server_menu()
+
+# Preferences menu
+preferences_menu()
+
+
+# Starts executing from here
 
 main_menu

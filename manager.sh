@@ -29,7 +29,7 @@ do
 	3)
 	printf -- "Goodbye!\n\n" && exit 0 ;;
 	*)
-	printf -- "That's not a valid number!\n" && lock="1" && sleep 3 ;;	
+	printf -- "Sorry, that's not a valid option!\n" && lock="1" && sleep 3 ;;	
 	esac
 done
 }

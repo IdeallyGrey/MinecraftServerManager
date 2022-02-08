@@ -6,6 +6,24 @@ clear_page()
 printf -- "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
 }
 
+# View servers menu
+view_servers_menu()
+{
+	printf -- "This is a server list"
+}
+
+# Create new server menu
+create_server_menu()
+{
+	printf -- "Server creation menu"
+}
+
+# Preferences menu
+preferences_menu()
+{
+	printf -- "This is the preferences menu"
+}
+
 # Main menu
 main_menu()
 {
@@ -26,7 +44,7 @@ do
 	1)
 	view_servers_menu ;;
 	2)
-	create_new_server_menu ;;
+	create_server_menu ;;
 	3)
 	preferences_menu ;;
 	4)
@@ -36,15 +54,6 @@ do
 	esac
 done
 }
-
-# View servers menu
-view_servers_menu()
-
-# Create new server menu
-create_new_server_menu()
-
-# Preferences menu
-preferences_menu()
 
 
 # Starts executing from here

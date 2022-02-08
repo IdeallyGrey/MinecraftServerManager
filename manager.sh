@@ -27,7 +27,7 @@ do
 	2)
 	printf -- "Create New Server\n" ;;
 	3)
-	printf -- "Goodbye!\n" && exit 0 ;;
+	printf -- "Goodbye!\n\n" && exit 0 ;;
 	*)
 	printf -- "That's not a valid number!\n" && lock="1" && sleep 3 ;;	
 	esac

@@ -1,10 +1,14 @@
+clear_page()
+{
+printf -- "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+}
 
 lock="1"
 while [ "$lock" = "1" ];
 do
 	lock="0"
 	responce="0"
-	printf -- "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+	clear_page()
 	printf -- "\nLoading...\n"
 	printf --  "Java version: \n----------\n"
 	java --version

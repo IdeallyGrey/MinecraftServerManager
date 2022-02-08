@@ -18,7 +18,8 @@ do
  	printf -- "---Minecraft Server Manager---\n"
  	printf -- "\n1 - View Servers\n"
  	printf -- "2 - Create New Server\n"
- 	printf -- "3 - Exit\n"
+	printf -- "3 - Preferences\n"
+ 	printf -- "4 - Exit\n"
 	printf -- ">> "
 	read -r responce
 	case $responce in
@@ -27,9 +28,11 @@ do
 	2)
 	printf -- "Create New Server\n" ;;
 	3)
+	printf -- "Preferences\n" ;;
+	4)
 	printf -- "Goodbye!\n\n" && exit 0 ;;
 	*)
-	printf -- "Sorry, that's not a valid option!\n" && lock="1" && sleep 3 ;;	
+	printf -- "Sorry, that's not a valid option!\n" && lock="1" && sleep 3 ;;
 	esac
 done
 }

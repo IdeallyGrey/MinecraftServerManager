@@ -1,3 +1,6 @@
+#Some functions
+
+#Skips a bunch of lines
 clear_page()
 {
 printf -- "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
@@ -8,7 +11,7 @@ while [ "$lock" = "1" ];
 do
 	lock="0"
 	responce="0"
-	clear_page()
+	clear_page
 	printf -- "\nLoading...\n"
 	printf --  "Java version: \n----------\n"
 	java --version

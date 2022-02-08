@@ -3,19 +3,18 @@
 #Skips a bunch of lines
 clear_page()
 {
-printf -- "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+printf -- "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
 }
 
+#Main menu
+main_menu()
+{
 lock="1"
 while [ "$lock" = "1" ];
 do
 	lock="0"
 	responce="0"
 	clear_page
-	printf -- "\nLoading...\n"
-	printf --  "Java version: \n----------\n"
-	java --version
- 	printf -- "----------\n\n\n"
  	printf -- "---Minecraft Server Manager---\n"
  	printf -- "\n1 - View Servers\n"
  	printf -- "2 - Create New Server\n"
@@ -33,3 +32,8 @@ do
 	printf -- "That's not a valid number!\n" && lock="1" && sleep 3 ;;	
 	esac
 done
+}
+
+#Starts executing from here
+
+main_menu

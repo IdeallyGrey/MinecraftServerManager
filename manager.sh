@@ -20,15 +20,24 @@ view_servers_menu()
 # Create new server menu
 create_server_menu()
 {
-	printf -- "Name of server: \n"
+	printf -- "Name of server (type 'exit' to exit): \n"
 	lock="1"
 	while [ "$lock" = "1" ];
 	do
 		lock="0"
 		responce="0"
 		read -r responce
-		if [ "$responce" = "" ];
-		
+		if [ "$responce" = "" ]; then
+			printf -- "Are you gonna put in at least a little effort?"
+			lock="1"
+		elif [ "$responce" = "exit" ]; then
+			main_menu
+		else
+			cd Instances
+			touch $responce
+			cd ..
+			main_menu
+		fi
 }
 
 # Preferences menu

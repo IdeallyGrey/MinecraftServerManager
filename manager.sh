@@ -9,19 +9,19 @@ printf -- "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 # View servers menu
 view_servers_menu()
 {
-	printf -- "This is a server list"
+	printf -- "This is a server list\n"
 }
 
 # Create new server menu
 create_server_menu()
 {
-	printf -- "Server creation menu"
+	printf -- "Server creation menu\n"
 }
 
 # Preferences menu
 preferences_menu()
 {
-	printf -- "This is the preferences menu"
+	printf -- "This is the preferences menu\n"
 }
 
 # Main menu

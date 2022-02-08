@@ -9,6 +9,7 @@ printf -- "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 # View servers menu
 view_servers_menu()
 {
+	numberOfInstances=$(ls Instances/ | wc -l)
 	printf -- "This is a server list\n"
 }
 

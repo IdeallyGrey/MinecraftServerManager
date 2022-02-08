@@ -10,13 +10,25 @@ printf -- "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 view_servers_menu()
 {
 	numberOfInstances=$(ls Instances/ | wc -l)
-	printf -- "This is a server list\n"
+	printf -- "Number of instances: "
+	printf -- $numberOfInstances
+	printf -- "\n\n"
+	ls Instances/ | cat
+
 }
 
 # Create new server menu
 create_server_menu()
 {
-	printf -- "Server creation menu\n"
+	printf -- "Name of server: \n"
+	lock="1"
+	while [ "$lock" = "1" ];
+	do
+		lock="0"
+		responce="0"
+		read -r responce
+		if [ "$responce" = "" ];
+		
 }
 
 # Preferences menu

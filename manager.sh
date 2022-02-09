@@ -6,18 +6,48 @@ clear_page()
 printf -- "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
 }
 
+show_instance_list()
+{
+  numberOfInstances=$(ls Instances/ | wc -l)  # Finds the number of servers
+  printf -- "Number of servers: "
+  printf -- $numberOfInstances
+  printf -- "\nUsing a total file size of: "
+  printf -- $(du -hs Instances | cut -f1)  # Prints the total file size of all servers
+  printf -- "\n\n"
+  ls Instances/ | cat  # lists all servers
+  printf -- "\n"
+}
+
 # View servers menu
 view_servers_menu()
 {
-	clear_page
-	numberOfInstances=$(ls Instances/ | wc -l)
-	printf -- "Number of servers: "
-	printf -- $numberOfInstances
-	printf -- "\nUsing a total file size of: "
-	printf -- $(du -hs Instances | cut -f1)
-	printf -- "\n\n"
-	ls Instances/ | cat
-	printf -- "\n"
+  lock="1"
+  while [ "$lock" = "1" ];
+  do
+  	lock="0"
+  	responce="0"
+  	clear_page
+    show_instance_list
+    printf -- "\nWhat would you like to do?\n\n"
+   	printf -- "1 - Start a server\n"
+   	printf -- "2 - Delete a server\n"
+    printf -- "3 - Configure a server\n"
+  	printf -- "4 - Return to main menu\n"
+  	printf -- ">> "
+  	read -r responce
+  	case $responce in
+  	1)
+  	launch_instance ;;
+  	2)
+    configure_instance ;;
+    3)
+  	delete_instance ;;
+  	4)
+  	main_menu ;;
+  	*)
+  	printf -- "Sorry, that's not a valid option!\n" && lock="1" && sleep 3 ;;
+  	esac
+  done
 }
 
 # Create new server menu
@@ -38,6 +68,7 @@ create_server_menu()
 		elif [ "$newServerName" = "exit" ]; then
 			main_menu
 		else
+      newServerName=${newServerName// /-}
 			cd Instances
 			mkdir $newServerName
 			cd ..

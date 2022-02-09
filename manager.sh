@@ -1,6 +1,7 @@
 # Server download Links
 Minecraft1_18_1="https://launcher.mojang.com/v1/objects/125e5adf40c659fd3bce3e66e67a16bb49ecc1b9/server.jar"
 PaperMC1_18_1="https://papermc.io/api/v2/projects/paper/versions/1.18.1/builds/187/downloads/paper-1.18.1-187.jar"
+minecraftPort="25565"
 
 
 # Some functions
@@ -52,6 +53,22 @@ show_instance_list()
   deco_bar
 }
 
+launch_instance()
+{
+  clear_page
+  printf -- "Server is ready to start.\n"
+  printf -- "In case you don't already know, to join the server via LAN, use the following address: "
+  printf -- $(perl -MSocket -le 'socket(S, PF_INET, SOCK_DGRAM, getprotobyname("udp"));
+connect(S, sockaddr_in(1, inet_aton("8.8.8.8")));
+print inet_ntoa((sockaddr_in(getsockname(S)))[1]);')  # This lovely mess comes from Stack Overflow. Prints the private IP address, and should be more universally supported than using something like hostname.
+  printf -- ":"
+  printf -- $minecraftPort
+  printf -- "\nThis message will disapear when you start the server, so please note the address now.\nIf this is your first time running the server, it may take a while for the world to generate.\n\nPress enter when ready.\n\n"
+
+  read -r responce
+  java -Xmx3G -Xms3G -jar minecraftServer.jar --nogui
+}
+
 delete_instance()
 {
   lock="1"
@@ -78,7 +95,6 @@ delete_instance()
   	printf -- "Sorry, that's not a valid option!\n" && lock="1" && dot_animation ;;
   	esac
 	done
-
 }
 
 select_a_instance_for_action()

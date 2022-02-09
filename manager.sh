@@ -6,6 +6,11 @@ clear_page()
 printf -- "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
 }
 
+deco_bar()
+{
+  printf -- "----------"
+}
+
 show_instance_list()
 {
   numberOfInstances=$(ls Instances/ | wc -l)  # Finds the number of servers
@@ -27,7 +32,9 @@ view_servers_menu()
   	lock="0"
   	responce="0"
   	clear_page
+    deco_bar
     show_instance_list
+    deco_bar
     printf -- "\nWhat would you like to do?\n\n"
    	printf -- "1 - Start a server\n"
    	printf -- "2 - Delete a server\n"

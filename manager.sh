@@ -30,12 +30,13 @@ deco_bar()
 
 dot_animation()
 {
-  sleep 1
   printf -- "."
   sleep 1
   printf -- "."
   sleep 1
-  printf -- ".\n"
+  printf -- "."
+  sleep 1
+  printf -- "\n"
 }
 
 show_instance_list()
@@ -222,6 +223,7 @@ create_server_menu()
       perl -pi -e 's/false/true/g' eula.txt # Auto agrees to the minecraft eula
       cd ../..
       printf -- "Done!\n"
+      sleep 3
       dot_animation
 			main_menu
 		fi

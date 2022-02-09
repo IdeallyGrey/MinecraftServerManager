@@ -61,8 +61,8 @@ do
 	lock="0"
 	responce="0"
 	clear_page
- 	printf -- "---Minecraft Server Manager---\n"
- 	printf -- "\n1 - View Servers\n"
+ 	printf -- "---Minecraft Server Manager---\n\n"
+ 	printf -- "1 - View Servers\n"
  	printf -- "2 - Create New Server\n"
 	printf -- "3 - Preferences\n"
  	printf -- "4 - Exit\n"

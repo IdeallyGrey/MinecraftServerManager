@@ -24,6 +24,19 @@ show_instance_list()
   deco_bar
 }
 
+delete_instance()
+{
+
+}
+
+select_a_server_for_action()
+{
+  clear_page
+  printf -- "Select a server:\n\n"
+  ls Instances/ | cat | nl  # Prints list of instances with a number
+  numberOfInstances=$(ls Instances/ | wc -l) # Finds the number of servers
+}
+
 # View servers menu
 view_servers_menu()
 {
@@ -31,17 +44,17 @@ view_servers_menu()
   while [ "$lock" = "1" ];
   do
   	lock="0"
-  	responce="0"
+  	action="0"
   	clear_page
     show_instance_list
     printf -- "\nWhat would you like to do?\n\n"
    	printf -- "1 - Start a server\n"
-   	printf -- "2 - Delete a server\n"
-    printf -- "3 - Configure a server\n"
+   	printf -- "2 - Configure a server\n"
+    printf -- "3 - Delete a server\n"
   	printf -- "4 - Return to main menu\n"
   	printf -- ">> "
-  	read -r responce
-  	case $responce in
+  	read -r action
+  	case $action in
   	1)
   	launch_instance ;;
   	2)
@@ -66,9 +79,11 @@ select_server_type()
   	clear_page
    	printf -- "The new server will be named: '"
     printf -- $newServerName
-    printf -- "'\nSelect the server type: "
+    printf -- "'\nSelect the server type: \n"
+    deco_bar
    	printf -- "1 - Offical Minecraft 1.18.1 Server\n"
    	printf -- "2 - PaperMC 1.18.1 Server (Comes with preformance patches, highly recommended)\n"
+    deco_bar
   	printf -- ">> "
   	read -r responce
   	case $responce in
@@ -112,6 +127,7 @@ create_server_menu()
       ;;
       *)
       printf -- "Error: Server type unknown!" && exit 1 ;;
+      esac
       cd ../..
 			main_menu
 		fi

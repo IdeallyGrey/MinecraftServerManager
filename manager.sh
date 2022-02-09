@@ -9,41 +9,47 @@ printf -- "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 # View servers menu
 view_servers_menu()
 {
+	clear_page
 	numberOfInstances=$(ls Instances/ | wc -l)
-	printf -- "Number of instances: "
+	printf -- "Number of servers: "
 	printf -- $numberOfInstances
+	printf -- "\nUsing a total file size of: "
+	printf -- $(du -hs Instances | cut -f1)
 	printf -- "\n\n"
 	ls Instances/ | cat
-
+	printf -- "\n"
 }
 
 # Create new server menu
 create_server_menu()
 {
-	printf -- "Name of server (type 'exit' to exit): \n"
 	lock="1"
 	while [ "$lock" = "1" ];
 	do
+		clear_page
+		printf -- "Name of server (type 'exit' to cancel): \n"
 		lock="0"
-		responce="0"
-		read -r responce
-		if [ "$responce" = "" ]; then
-			printf -- "Are you gonna put in at least a little effort?"
+		newServerName="0"
+		read -r newServerName
+		if [ "$newServerName" = "" ]; then
+			printf -- "Are you gonna put in at least a little effort?\n"
 			lock="1"
-		elif [ "$responce" = "exit" ]; then
+			sleep 3
+		elif [ "$newServerName" = "exit" ]; then
 			main_menu
 		else
 			cd Instances
-			touch $responce
+			mkdir $newServerName
 			cd ..
 			main_menu
 		fi
+	done
 }
 
 # Preferences menu
 preferences_menu()
 {
-	printf -- "This is the preferences menu\n"
+	printf -- "This is the preferences menu.\n"
 }
 
 # Main menu

@@ -12,7 +12,7 @@ check_for_wget_or_curl()  # Determins what program to use to download the needed
   elif [ "$(command -v curl)" != "" ]; then
     downloadCommand="curl"
   else
-    printf -- "Error: 'wget' and/or 'curl' commands could not be found."
+    printf -- "Error: 'wget' and/or 'curl' commands could not be found.\n"
     exit 1
   fi
 }
@@ -26,6 +26,16 @@ printf -- "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 deco_bar()
 {
   printf -- "----------\n"
+}
+
+dot_animation()
+{
+  sleep 1
+  printf -- "."
+  sleep 1
+  printf -- "."
+  sleep 1
+  printf -- ".\n"
 }
 
 show_instance_list()
@@ -64,7 +74,7 @@ delete_instance()
     sleep 2
     main_menu ;;
   	*)
-  	printf -- "Sorry, that's not a valid option!\n" && lock="1" && sleep 3 ;;
+  	printf -- "Sorry, that's not a valid option!\n" && lock="1" && dot_animation ;;
   	esac
 	done
 
@@ -90,7 +100,7 @@ select_a_instance_for_action()
   	elif [ "$instanceForAction" = "exit" ]; then
       main_menu
     else
-  	   printf -- "Sorry, that's not a valid option!" && lock="1" && sleep 2
+  	   printf -- "Sorry, that's not a valid option!\n" && lock="1" && dot_animation
   	fi
 	done
 
@@ -126,7 +136,7 @@ view_servers_menu()
   	4)
   	main_menu ;;
   	*)
-  	printf -- "Sorry, that's not a valid option!\n" && lock="1" && sleep 3 ;;
+  	printf -- "Sorry, that's not a valid option!\n" && lock="1" && dot_animation ;;
   	esac
   done
 }
@@ -141,10 +151,10 @@ select_server_type()
   	clear_page
    	printf -- "The new server will be named: '"
     printf -- $newServerName
-    printf -- "'\nSelect the server type: \n"
+    printf -- "'\n\nPlease note: by continuing you are automatically agreeing with the Minecraft eula.\nMore info can be found here: https://account.mojang.com/documents/minecraft_eula.\n\nSelect the server type: (Enter 'exit' to cancel)\n\n"
     deco_bar
-   	printf -- "1 - Offical Minecraft 1.18.1 Server\n"
-   	printf -- "2 - PaperMC 1.18.1 Server (Comes with preformance patches, highly recommended)\n"
+   	printf -- "1 - Offical Mojang 1.18.1 Server Software\n"
+   	printf -- "2 - PaperMC 1.18.1 Server Software (Comes with preformance patches built in, highly recommended)\n"
     deco_bar
   	printf -- ">> "
   	read -r responce
@@ -153,8 +163,10 @@ select_server_type()
   	serverType="1" ;;
   	2)
   	serverType="2" ;;
+    "exit")
+    main_menu ;;
   	*)
-  	printf -- "Sorry, that's not a valid option!\n" && lock="1" && sleep 3 ;;
+  	printf -- "Sorry, that's not a valid option!\n" && lock="1" && dot_animation ;;
   	esac
   done
 }
@@ -173,38 +185,44 @@ create_server_menu()
 		if [ "$newServerName" = "" ]; then
 			printf -- "Are you gonna put in at least a little effort?\n"
 			lock="1"
-			sleep 3
+			dot_animation
 		elif [ "$newServerName" = "exit" ]; then
 			main_menu
 		else
       newServerName=${newServerName// /-}
       select_server_type
+      printf -- "Setting up...\n"
       cd Instances
+      printf -- "Making directory...\n"
 			mkdir $newServerName
 			cd $newServerName
       case $serverType in
       1)
       if [ "$downloadCommand" = "wget" ]; then
-        wget $Minecraft1_18_1
+        wget -o minecraftServer.jar $Minecraft1_18_1
       elif [ "$downloadCommand" = "curl" ]; then
-        curl -O $Minecraft1_18_1
+        curl -o minecraftServer.jar $Minecraft1_18_1
       else
-        printf -- "Error: Something went wrong with the download command."
+        printf -- "Error: Something went wrong with the download command.\n"
         exit 1
       fi ;;
       2)
       if [ "$downloadCommand" = "wget" ]; then
-        wget $PaperMC1_18_1
+        wget -o minecraftServer.jar $PaperMC1_18_1
       elif [ "$downloadCommand" = "curl" ]; then
-        curl -O $PaperMC1_18_1
+        curl -o minecraftServer.jar $PaperMC1_18_1
       else
-        printf -- "Error: Something went wrong with the download command."
+        printf -- "Error: Something went wrong with the download command.\n"
         exit 1
       fi ;;
       *)
-      printf -- "Error: Server type unknown!" && exit 1 ;;
+      printf -- "Error: Server type unknown!\n" && exit 1 ;;
       esac
+      java -jar minecraftServer.jar --nogui
+      perl -pi -e 's/false/true/g' eula.txt # Auto agrees to the minecraft eula
       cd ../..
+      printf -- "Done!\n"
+      dot_animation
 			main_menu
 		fi
 	done
@@ -242,7 +260,7 @@ do
 	4)
 	printf -- "Goodbye!\n\n" && exit 0 ;;
 	*)
-	printf -- "Sorry, that's not a valid option!\n" && lock="1" && sleep 3 ;;
+	printf -- "Sorry, that's not a valid option!\n" && lock="1" && dot_animation ;;
 	esac
 done
 }

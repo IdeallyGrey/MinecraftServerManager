@@ -1,3 +1,2 @@
-#Should ignore everything inside Instances and Cache
+#Should ignore everything inside Instances
 /Instances/*
-/Cache/*

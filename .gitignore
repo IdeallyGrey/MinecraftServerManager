@@ -1,2 +1,3 @@
 #Should ignore everything inside Instances
 /Instances/*
+.DS_Store

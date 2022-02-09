@@ -8,7 +8,7 @@ printf -- "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 deco_bar()
 {
-  printf -- "----------"
+  printf -- "----------\n"
 }
 
 show_instance_list()
@@ -19,8 +19,9 @@ show_instance_list()
   printf -- "\nUsing a total file size of: "
   printf -- $(du -hs Instances | cut -f1)  # Prints the total file size of all servers
   printf -- "\n\n"
+  deco_bar
   ls Instances/ | cat  # lists all servers
-  printf -- "\n"
+  deco_bar
 }
 
 # View servers menu
@@ -32,9 +33,7 @@ view_servers_menu()
   	lock="0"
   	responce="0"
   	clear_page
-    deco_bar
     show_instance_list
-    deco_bar
     printf -- "\nWhat would you like to do?\n\n"
    	printf -- "1 - Start a server\n"
    	printf -- "2 - Delete a server\n"
@@ -51,6 +50,32 @@ view_servers_menu()
   	delete_instance ;;
   	4)
   	main_menu ;;
+  	*)
+  	printf -- "Sorry, that's not a valid option!\n" && lock="1" && sleep 3 ;;
+  	esac
+  done
+}
+
+select_server_type()
+{
+  lock="1"
+  while [ "$lock" = "1" ];
+  do
+  	lock="0"
+  	responce="0"
+  	clear_page
+   	printf -- "The new server will be named: '"
+    printf -- $newServerName
+    printf -- "'\nSelect the server type: "
+   	printf -- "1 - Offical Minecraft 1.18.1 Server\n"
+   	printf -- "2 - PaperMC 1.18.1 Server (Comes with preformance patches, highly recommended)\n"
+  	printf -- ">> "
+  	read -r responce
+  	case $responce in
+  	1)
+  	serverType="1" ;;
+  	2)
+  	serverType="2" ;;
   	*)
   	printf -- "Sorry, that's not a valid option!\n" && lock="1" && sleep 3 ;;
   	esac
@@ -76,9 +101,18 @@ create_server_menu()
 			main_menu
 		else
       newServerName=${newServerName// /-}
-			cd Instances
+      select_server_type
+      cd Instances
 			mkdir $newServerName
-			cd ..
+			cd $newServerName
+      case $serverType in
+      1)
+      ;;
+      2)
+      ;;
+      *)
+      printf -- "Error: Server type unknown!" && exit 1 ;;
+      cd ../..
 			main_menu
 		fi
 	done

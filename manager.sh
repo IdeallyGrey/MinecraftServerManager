@@ -60,7 +60,7 @@ launch_instance()
   printf -- "In case you don't already know, to join the server via LAN, use the following address: "
   printf -- $(perl -MSocket -le 'socket(S, PF_INET, SOCK_DGRAM, getprotobyname("udp"));
 connect(S, sockaddr_in(1, inet_aton("8.8.8.8")));
-print inet_ntoa((sockaddr_in(getsockname(S)))[1]);')  # This lovely mess comes from Stack Overflow. Prints the private IP address, and should be more universally supported than using something like hostname.
+print inet_ntoa((sockaddr_in(getsockname(S)))[1]);')  # This lovely mess comes from Stack Overflow. Prints the private IP address, and should be more universally supported than using something like the hostname command.
   printf -- ":"
   printf -- $minecraftPort
   printf -- "\nThis message will disapear when you start the server, so please note the address now.\nIf this is your first time running the server, it may take a while for the world to generate.\n\nPress enter when ready.\n\n"
@@ -84,16 +84,16 @@ delete_instance()
 		read -r responce
     case $responce in
     	"n" | "N" | "no" | "NO")
-    	printf -- "Canceling..."
-      sleep 2
-      main_menu ;;
+      	printf -- "Canceling..."
+        sleep 2
+        main_menu ;;
       "y" | "Y" | "yes" | "YES")
-      printf -- "Deleteing..."
-      rm -rf Instances/$instanceForActionName
-      sleep 2
-      main_menu ;;
+        printf -- "Deleteing..."
+        rm -rf Instances/$instanceForActionName
+        sleep 2
+        main_menu ;;
     	*)
-    	printf -- "Sorry, that's not a valid option!\n" && lock="1" && dot_animation ;;
+      	printf -- "Sorry, that's not a valid option!\n" && lock="1" && dot_animation ;;
   	esac
 	done
 }
@@ -143,18 +143,18 @@ view_servers_menu()
   	read -r action
   	case $action in
     	1)
-    	select_a_instance_for_action
-      launch_instance ;;
+      	select_a_instance_for_action
+        launch_instance ;;
     	2)
-      select_a_instance_for_action
-      configure_instance ;;
+        select_a_instance_for_action
+        configure_instance ;;
       3)
-    	select_a_instance_for_action
-      delete_instance ;;
+      	select_a_instance_for_action
+        delete_instance ;;
     	4)
-    	main_menu ;;
+      	main_menu ;;
     	*)
-    	printf -- "Sorry, that's not a valid option!\n" && lock="1" && dot_animation ;;
+      	printf -- "Sorry, that's not a valid option!\n" && lock="1" && dot_animation ;;
   	esac
   done
 }
@@ -178,13 +178,13 @@ select_server_type()
   	read -r responce
   	case $responce in
     	1)
-    	serverType="1" ;;
+      	serverType="1" ;;
     	2)
-    	serverType="2" ;;
-      "exit")
-      main_menu ;;
+      	serverType="2" ;;
+        "exit")
+        main_menu ;;
     	*)
-    	printf -- "Sorry, that's not a valid option!\n" && lock="1" && dot_animation ;;
+      	printf -- "Sorry, that's not a valid option!\n" && lock="1" && dot_animation ;;
   	esac
   done
 }
@@ -217,25 +217,25 @@ create_server_menu()
       printf -- "Downloading files...\n"
       case $serverType in
         1)
-        if [ "$downloadCommand" = "wget" ]; then
-          wget $Minecraft1_18_1
-        elif [ "$downloadCommand" = "curl" ]; then
-          curl -O $Minecraft1_18_1
-        else
-          printf -- "Error: Something went wrong with the download command.\n"
-          exit 1
-        fi ;;
+          if [ "$downloadCommand" = "wget" ]; then
+            wget $Minecraft1_18_1
+          elif [ "$downloadCommand" = "curl" ]; then
+            curl -O $Minecraft1_18_1
+          else
+            printf -- "Error: Something went wrong with the download command.\n"
+            exit 1
+          fi ;;
         2)
-        if [ "$downloadCommand" = "wget" ]; then
-          wget $PaperMC1_18_1
-        elif [ "$downloadCommand" = "curl" ]; then
-          curl -O $PaperMC1_18_1
-        else
-          printf -- "Error: Something went wrong with the download command.\n"
-          exit 1
-        fi ;;
+          if [ "$downloadCommand" = "wget" ]; then
+            wget $PaperMC1_18_1
+          elif [ "$downloadCommand" = "curl" ]; then
+            curl -O $PaperMC1_18_1
+          else
+            printf -- "Error: Something went wrong with the download command.\n"
+            exit 1
+          fi ;;
         *)
-        printf -- "Error: Server type unknown!\n" && exit 1 ;;
+          printf -- "Error: Server type unknown!\n" && exit 1 ;;
       esac
       printf -- "Renaming...\n"
       mv *.jar minecraftServer.jar
@@ -243,6 +243,8 @@ create_server_menu()
       java -jar minecraftServer.jar --nogui
       printf -- "Updating eula status...\n"
       perl -pi -e 's/false/true/g' eula.txt # Auto agrees to the minecraft eula
+      printf -- "Creating manager's config file..."
+      touch managerInstance.conf
       cd ../..
       sleep 2
       printf -- "\n\n\n\n\nDone!\n\n"
@@ -267,9 +269,9 @@ do
 	read -r responce
 	case $responce in
   	1)
-  	main_menu ;;
+    	main_menu ;;
   	*)
-  	printf -- "Sorry, that's not a valid option!\n" && lock="1" && dot_animation ;;
+    	printf -- "Sorry, that's not a valid option!\n" && lock="1" && dot_animation ;;
 	esac
 done
 }
@@ -283,24 +285,24 @@ do
 	lock="0"
 	responce="0"
 	clear_page
- 	printf -- "---Minecraft Server Manager---\n\n"
- 	printf -- "1 - View Servers\n"
- 	printf -- "2 - Create New Server\n"
-	printf -- "3 - Preferences\n"
- 	printf -- "4 - Exit\n"
+  printf -- "---Minecraft Server Manager---\n\n"
+  printf -- "1 - View Servers\n"
+  printf -- "2 - Create New Server\n"
+  printf -- "3 - Preferences\n"
+  printf -- "4 - Exit\n"
 	printf -- ">> "
 	read -r responce
 	case $responce in
-  	1)
-  	view_servers_menu ;;
-  	2)
-  	create_server_menu ;;
+    1)
+    	view_servers_menu ;;
+    2)
+    	create_server_menu ;;
   	3)
-  	preferences_menu ;;
+    	preferences_menu ;;
   	4)
-  	printf -- "Goodbye!\n\n" && exit 0 ;;
+    	printf -- "Goodbye!\n\n" && exit 0 ;;
   	*)
-  	printf -- "Sorry, that's not a valid option!\n" && lock="1" && dot_animation ;;
+    	printf -- "Sorry, that's not a valid option!\n" && lock="1" && dot_animation ;;
 	esac
 done
 }

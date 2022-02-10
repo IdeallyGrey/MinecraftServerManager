@@ -67,6 +67,7 @@ print inet_ntoa((sockaddr_in(getsockname(S)))[1]);')  # This lovely mess comes f
 
   read -r responce
   java -Xmx3G -Xms3G -jar minecraftServer.jar --nogui
+  main_menu
 }
 
 delete_instance()
@@ -82,17 +83,17 @@ delete_instance()
     printf -- "\n\n(y/n): "
 		read -r responce
     case $responce in
-  	"n" | "N" | "no" | "NO")
-  	printf -- "Canceling..."
-    sleep 2
-    main_menu ;;
-    "y" | "Y" | "yes" | "YES")
-    printf -- "Deleteing..."
-    rm -rf Instances/$instanceForActionName
-    sleep 2
-    main_menu ;;
-  	*)
-  	printf -- "Sorry, that's not a valid option!\n" && lock="1" && dot_animation ;;
+    	"n" | "N" | "no" | "NO")
+    	printf -- "Canceling..."
+      sleep 2
+      main_menu ;;
+      "y" | "Y" | "yes" | "YES")
+      printf -- "Deleteing..."
+      rm -rf Instances/$instanceForActionName
+      sleep 2
+      main_menu ;;
+    	*)
+    	printf -- "Sorry, that's not a valid option!\n" && lock="1" && dot_animation ;;
   	esac
 	done
 }
@@ -141,19 +142,19 @@ view_servers_menu()
   	printf -- ">> "
   	read -r action
   	case $action in
-  	1)
-  	select_a_instance_for_action
-    launch_instance ;;
-  	2)
-    select_a_instance_for_action
-    configure_instance ;;
-    3)
-  	select_a_instance_for_action
-    delete_instance ;;
-  	4)
-  	main_menu ;;
-  	*)
-  	printf -- "Sorry, that's not a valid option!\n" && lock="1" && dot_animation ;;
+    	1)
+    	select_a_instance_for_action
+      launch_instance ;;
+    	2)
+      select_a_instance_for_action
+      configure_instance ;;
+      3)
+    	select_a_instance_for_action
+      delete_instance ;;
+    	4)
+    	main_menu ;;
+    	*)
+    	printf -- "Sorry, that's not a valid option!\n" && lock="1" && dot_animation ;;
   	esac
   done
 }
@@ -176,14 +177,14 @@ select_server_type()
   	printf -- ">> "
   	read -r responce
   	case $responce in
-  	1)
-  	serverType="1" ;;
-  	2)
-  	serverType="2" ;;
-    "exit")
-    main_menu ;;
-  	*)
-  	printf -- "Sorry, that's not a valid option!\n" && lock="1" && dot_animation ;;
+    	1)
+    	serverType="1" ;;
+    	2)
+    	serverType="2" ;;
+      "exit")
+      main_menu ;;
+    	*)
+    	printf -- "Sorry, that's not a valid option!\n" && lock="1" && dot_animation ;;
   	esac
   done
 }
@@ -215,26 +216,26 @@ create_server_menu()
 			cd $newServerName
       printf -- "Downloading files...\n"
       case $serverType in
-      1)
-      if [ "$downloadCommand" = "wget" ]; then
-        wget $Minecraft1_18_1
-      elif [ "$downloadCommand" = "curl" ]; then
-        curl -O $Minecraft1_18_1
-      else
-        printf -- "Error: Something went wrong with the download command.\n"
-        exit 1
-      fi ;;
-      2)
-      if [ "$downloadCommand" = "wget" ]; then
-        wget $PaperMC1_18_1
-      elif [ "$downloadCommand" = "curl" ]; then
-        curl -O $PaperMC1_18_1
-      else
-        printf -- "Error: Something went wrong with the download command.\n"
-        exit 1
-      fi ;;
-      *)
-      printf -- "Error: Server type unknown!\n" && exit 1 ;;
+        1)
+        if [ "$downloadCommand" = "wget" ]; then
+          wget $Minecraft1_18_1
+        elif [ "$downloadCommand" = "curl" ]; then
+          curl -O $Minecraft1_18_1
+        else
+          printf -- "Error: Something went wrong with the download command.\n"
+          exit 1
+        fi ;;
+        2)
+        if [ "$downloadCommand" = "wget" ]; then
+          wget $PaperMC1_18_1
+        elif [ "$downloadCommand" = "curl" ]; then
+          curl -O $PaperMC1_18_1
+        else
+          printf -- "Error: Something went wrong with the download command.\n"
+          exit 1
+        fi ;;
+        *)
+        printf -- "Error: Server type unknown!\n" && exit 1 ;;
       esac
       printf -- "Renaming...\n"
       mv *.jar minecraftServer.jar
@@ -254,7 +255,32 @@ create_server_menu()
 # Preferences menu
 preferences_menu()
 {
-	printf -- "This is the preferences menu.\n"
+lock="1"
+while [ "$lock" = "1" ];
+do
+	lock="0"
+	responce="0"
+	clear_page
+ 	printf -- "---Minecraft Server Manager---\n\n"
+ 	printf -- "1 - View Servers\n"
+ 	printf -- "2 - Create New Server\n"
+	printf -- "3 - Preferences\n"
+ 	printf -- "4 - Exit\n"
+	printf -- ">> "
+	read -r responce
+	case $responce in
+  	1)
+  	view_servers_menu ;;
+  	2)
+  	create_server_menu ;;
+  	3)
+  	preferences_menu ;;
+  	4)
+  	printf -- "Goodbye!\n\n" && exit 0 ;;
+  	*)
+  	printf -- "Sorry, that's not a valid option!\n" && lock="1" && dot_animation ;;
+	esac
+done
 }
 
 # Main menu
@@ -274,16 +300,16 @@ do
 	printf -- ">> "
 	read -r responce
 	case $responce in
-	1)
-	view_servers_menu ;;
-	2)
-	create_server_menu ;;
-	3)
-	preferences_menu ;;
-	4)
-	printf -- "Goodbye!\n\n" && exit 0 ;;
-	*)
-	printf -- "Sorry, that's not a valid option!\n" && lock="1" && dot_animation ;;
+  	1)
+  	view_servers_menu ;;
+  	2)
+  	create_server_menu ;;
+  	3)
+  	preferences_menu ;;
+  	4)
+  	printf -- "Goodbye!\n\n" && exit 0 ;;
+  	*)
+  	printf -- "Sorry, that's not a valid option!\n" && lock="1" && dot_animation ;;
 	esac
 done
 }

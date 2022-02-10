@@ -209,12 +209,12 @@ create_server_menu()
 		else
       newServerName=${newServerName// /-}
       select_server_type
-      printf -- "Setting up...\n"
+      printf -- "\nSetting up...\n"
       cd Instances
-      printf -- "Making directory...\n"
+      printf -- "\nMaking directory...\n"
 			mkdir $newServerName
 			cd $newServerName
-      printf -- "Downloading files...\n"
+      printf -- "\nDownloading files...\n"
       case $serverType in
         1)
           if [ "$downloadCommand" = "wget" ]; then
@@ -237,18 +237,18 @@ create_server_menu()
         *)
           printf -- "Error: Server type unknown!\n" && exit 1 ;;
       esac
-      printf -- "Renaming...\n"
+      printf -- "\nRenaming...\n"
       mv *.jar minecraftServer.jar
-      printf -- "Setting up...\n"
+      printf -- "\nSetting up...\n"
       java -jar minecraftServer.jar --nogui
-      printf -- "Updating eula status...\n"
+      printf -- "\nUpdating eula status...\n"
       perl -pi -e 's/false/true/g' eula.txt # Auto agrees to the minecraft eula
-      printf -- "Creating manager's config file..."
+      printf -- "\nCreating manager's config file...\n"
       touch managerInstance.conf
       cd ../..
-      sleep 2
-      printf -- "\n\n\n\n\nDone!\n\n"
-      dot_animation
+      sleep 1
+      printf -- "\n\n\n\n\nProcess completed!\nPress enter to continue.\n\n"
+      read -r responce
 			view_servers_menu
 		fi
 	done

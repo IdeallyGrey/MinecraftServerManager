@@ -261,22 +261,13 @@ do
 	lock="0"
 	responce="0"
 	clear_page
- 	printf -- "---Minecraft Server Manager---\n\n"
- 	printf -- "1 - View Servers\n"
- 	printf -- "2 - Create New Server\n"
-	printf -- "3 - Preferences\n"
- 	printf -- "4 - Exit\n"
+ 	printf -- "Preferences:\n\n"
+ 	printf -- "1 - Return to main menu\n"
 	printf -- ">> "
 	read -r responce
 	case $responce in
   	1)
-  	view_servers_menu ;;
-  	2)
-  	create_server_menu ;;
-  	3)
-  	preferences_menu ;;
-  	4)
-  	printf -- "Goodbye!\n\n" && exit 0 ;;
+  	main_menu ;;
   	*)
   	printf -- "Sorry, that's not a valid option!\n" && lock="1" && dot_animation ;;
 	esac

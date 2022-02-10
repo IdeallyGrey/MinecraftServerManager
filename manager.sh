@@ -43,7 +43,7 @@ dot_animation()
 show_instance_list()
 {
   numberOfInstances=$(ls Instances/ | wc -l)  # Finds the number of servers
-  printf -- "Number of servers: "
+  printf -- "\n\nNumber of servers: "
   printf -- $numberOfInstances
   printf -- "\nUsing a total file size of: "
   printf -- $(du -hs Instances | cut -f1)  # Prints the total file size of all servers
@@ -213,21 +213,22 @@ create_server_menu()
       printf -- "Making directory...\n"
 			mkdir $newServerName
 			cd $newServerName
+      printf -- "Downloading files...\n"
       case $serverType in
       1)
       if [ "$downloadCommand" = "wget" ]; then
-        wget -o minecraftServer.jar $Minecraft1_18_1
+        wget $Minecraft1_18_1
       elif [ "$downloadCommand" = "curl" ]; then
-        curl -o minecraftServer.jar $Minecraft1_18_1
+        curl -O $Minecraft1_18_1
       else
         printf -- "Error: Something went wrong with the download command.\n"
         exit 1
       fi ;;
       2)
       if [ "$downloadCommand" = "wget" ]; then
-        wget -o minecraftServer.jar $PaperMC1_18_1
+        wget $PaperMC1_18_1
       elif [ "$downloadCommand" = "curl" ]; then
-        curl -o minecraftServer.jar $PaperMC1_18_1
+        curl -O $PaperMC1_18_1
       else
         printf -- "Error: Something went wrong with the download command.\n"
         exit 1
@@ -235,13 +236,17 @@ create_server_menu()
       *)
       printf -- "Error: Server type unknown!\n" && exit 1 ;;
       esac
+      printf -- "Renaming...\n"
+      mv *.jar minecraftServer.jar
+      printf -- "Setting up...\n"
       java -jar minecraftServer.jar --nogui
+      printf -- "Updating eula status...\n"
       perl -pi -e 's/false/true/g' eula.txt # Auto agrees to the minecraft eula
       cd ../..
-      printf -- "Done!\n"
-      sleep 3
+      sleep 2
+      printf -- "\n\n\n\n\nDone!\n\n"
       dot_animation
-			main_menu
+			view_servers_menu
 		fi
 	done
 }

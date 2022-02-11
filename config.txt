@@ -1,0 +1,2 @@
+defaultMincraftPort="25565" #The default port a server should connect to. The ability to change this is not yet implemented, so, just don't.
+javaPath="java" #The command to execute java. If you have multiple java instances, you can specify which one to use here.

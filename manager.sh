@@ -1,7 +1,7 @@
 # Server download Links
 Minecraft1_18_1="https://launcher.mojang.com/v1/objects/125e5adf40c659fd3bce3e66e67a16bb49ecc1b9/server.jar"
 PaperMC1_18_1="https://papermc.io/api/v2/projects/paper/versions/1.18.1/builds/187/downloads/paper-1.18.1-187.jar"
-minecraftPort="25565"
+
 
 
 # Some functions
@@ -62,11 +62,11 @@ launch_instance()
 connect(S, sockaddr_in(1, inet_aton("8.8.8.8")));
 print inet_ntoa((sockaddr_in(getsockname(S)))[1]);')  # This lovely mess comes from Stack Overflow. Prints the private IP address, and should be more universally supported than using something like the hostname command.
   printf -- ":"
-  printf -- $minecraftPort
+  printf -- $defaultMincraftPort
   printf -- "\nThis message will disapear when you start the server, so please note the address now.\nIf this is your first time running the server, it may take a while for the world to generate.\n\nPress enter when ready.\n\n"
 
   read -r responce
-  java -Xmx3G -Xms3G -jar minecraftServer.jar --nogui
+  $javaPath -Xmx3G -Xms3G -jar minecraftServer.jar --nogui
   main_menu
 }
 
@@ -240,7 +240,7 @@ create_server_menu()
       printf -- "\nRenaming...\n"
       mv *.jar minecraftServer.jar
       printf -- "\nSetting up...\n"
-      java -jar minecraftServer.jar --nogui
+      $javaPath -jar minecraftServer.jar --nogui
       printf -- "\nUpdating eula status...\n"
       perl -pi -e 's/false/true/g' eula.txt # Auto agrees to the minecraft eula
       printf -- "\nCreating manager's config file...\n"
@@ -309,6 +309,11 @@ done
 
 
 # Starts executing from here
-
-check_for_wget_or_curl
-main_menu
+if [ -f "config.txt" ] && [ -d "Instances" ] && [ -f "manager.sh" ]; then
+  source config.txt
+  check_for_wget_or_curl
+  main_menu
+else
+    printf -- "Error: Please move to the directory containing manager.sh.\n\n"
+    exit 1
+fi

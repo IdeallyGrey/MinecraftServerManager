@@ -1,6 +1,6 @@
 # MinecraftServerManager
  
-An easy to use TUI for installing, managing, and running Minecraft servers. Works on any Unix-like operating system (Linux, MacOS, etc..) Perfect for a RaspberryPi!
+An easy to use TUI for installing, managing, and running Minecraft servers. Works on any Unix-like operating system (Linux, MacOS, BSD, etc..) Perfect for a RaspberryPi!
 
 # Installing
 
@@ -14,3 +14,11 @@ An easy to use TUI for installing, managing, and running Minecraft servers. Work
 # Usage
 
 You can launch the manager by changing to the MinecraftServerSoftware directory, and running `sh manager.sh`.
+
+When prompted, it is recommended that you use the PaperMC software rather than Mojang's offical software. The PaperMC fork comes with several patches, and can greatly increase preformance, especially on lower-end machines.
+
+# Notes
+
+All pull requests are welcome!
+
+I am not afilliated with Mojang Studios, or the PaperMC project.
